@@ -1,1 +1,1 @@
-# Discord-Rainbow-Color-Role
+# Discord-Rainbow-Role-Controller
