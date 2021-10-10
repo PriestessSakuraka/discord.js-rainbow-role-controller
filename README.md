@@ -1,1 +1,1 @@
-# Discord-Rainbow-Role-Controller
+# discord.js-rainbow-role-controller
