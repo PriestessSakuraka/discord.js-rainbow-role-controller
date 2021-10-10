@@ -5,17 +5,20 @@ const isStr = obj => Object.prototype.toString.call(obj) === "[object String]"
 const isNum = obj => Object.prototype.toString.call(obj) === "[object Number]"
 const isObj = obj => Object.prototype.toString.call(obj) === "[object Object]"
 
-const RainbowRoleController = class {
+module.exports.RainbowRoleController = class {
     constructor(client, options) {
         const { guilds, colors, speed, logging } = options
 
-        if (!isArr(guilds)) {
-            if (!isStr(guilds)) throw Error("Please set guild id in constructor.")
+        if (!guilds) {
+            throw Error("Please set guild id in constructor.")
+        } else if (!isArr(guilds)) {
+            if (!isStr(guilds))
+                throw Error("Please set guild id in constructor.")
             this.guild_ids = [guilds]
         } else {
             this.guild_ids = guilds
         }
-      
+
         if (!isNum(colors) && !(colors == null)) {
             throw Error("colors must be Number.")
         }
@@ -24,7 +27,7 @@ const RainbowRoleController = class {
             throw Error("speed must be Number.")
         } else if (speed < 60000)
             throw Error(
-                "The minimum speed is 60.000 sec, if this gets abused your bot might get IP-banned"
+                "Please set speed below 60.000 sec, if this gets abused your bot might get IP-ban."
             )
 
         this.client = client
@@ -46,6 +49,7 @@ const RainbowRoleController = class {
 
     _createRainbow(size) {
         const arr = new Array(size)
+
         for (let i = 0; i < size; i++) {
             const red = this._sin_toHex(i, (0 * Math.PI * 2) / 3) // 0   deg
             const blue = this._sin_toHex(i, (1 * Math.PI * 2) / 3) // 120 deg
@@ -53,6 +57,7 @@ const RainbowRoleController = class {
 
             arr[i] = "#" + red + green + blue
         }
+
         return arr
     }
 
@@ -69,6 +74,7 @@ const RainbowRoleController = class {
 
         for (const guild of this.guild_ids) {
             const server = this.client.guilds.cache.get(guild)
+
             if (!server)
                 return console.log(`[RainbowRole] Server ${id} was not found.`)
 
@@ -90,6 +96,7 @@ const RainbowRoleController = class {
 
             roles.push([role.guild.id, role.id])
         }
+
         return roles
     }
 
@@ -153,37 +160,34 @@ const RainbowRoleController = class {
     }
 
     changeRoleColor() {
-        if (this._roles.size === 0) throw Error('Use "addRole" or "addRoles" method, before use "changeRoleColor"')
+        if (this._roles.size === 0)
+            throw Error(
+                'Use "addRole" or "addRoles" method, before use "changeRoleColor"'
+            )
         if (this._interval !== null)
             throw Error(
                 'Interval is already registered, use "stop" method before use "changeRoleColor"'
             )
-
+        
+        const setRoleColor = roles => roles.forEach(role => role.setColor(this.rainbow[this._place]).catch(console.error))
+        const logging = () => {
+            if (this.logging) {
+                const roles_name = roles.map(r => r.name).join(", ")
+                console.log(`[RainbowRole] Changed ${roles_name} color to ${this.rainbow[this._place]}`)
+            }
+        }
+        const changeColor = () => {
+            if (this._place == this.colors - 1) {
+                this._place = 0
+            } else {
+                this._place++
+            }
+        }
+        
         this._getRoles()
-            .then(roles =>
-                roles.forEach(role =>
-                    role
-                        .setColor(this.rainbow[this._place])
-                        .catch(console.error)
-                )
-            )
-            .then(roles => {
-                if (this.logging) {
-                    const roles_name = roles.map(r => r.name).join(", ")
-                    console.log(
-                        `[RainbowRole] Changed color to ${
-                            this.rainbow[this._place]
-                        }`
-                    )
-                }
-            })
-            .then(() => {
-                if (this._place == this.colors - 1) {
-                    this._place = 0
-                } else {
-                    this._place++
-                }
-            })
+            .then(roles => setRoleColor(roles))
+            .then(roles => logging())
+            .then(() => changeColor())
 
         return this
     }
