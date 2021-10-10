@@ -20,9 +20,7 @@ then use import or require to get module.
 const { Client, Intents } = require("discord.js")
 const { RainbowRoleController } = require("./RainbowRoleController.js")
 
-const client = new Client({
-    intents: [Intents.FLAGS.GUILDS]
-})
+const client = new Client({ intents: [Intents.FLAGS.GUILDS] })
 
 client.on("ready", () => {
     const controller = new RainbowRoleController(client, {
