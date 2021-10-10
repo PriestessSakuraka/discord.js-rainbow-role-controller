@@ -25,11 +25,10 @@ module.exports.RainbowRoleController = class {
 
         if (!isNum(speed) && !(speed == null)) {
             throw Error("speed must be Number.")
-        } else if (speed < 60000)
-            throw Error(
-                "Please set speed below 60.000 sec, if this gets abused your bot might get IP-ban."
-            )
-
+        } else if (speed < 60000) {
+            throw Error("Please set speed below 60.000 sec, if this gets abused your bot might get IP-ban.")
+        }
+            
         this.client = client
 
         this._interval = null
@@ -75,24 +74,17 @@ module.exports.RainbowRoleController = class {
         for (const guild of this.guild_ids) {
             const server = this.client.guilds.cache.get(guild)
 
-            if (!server)
-                return console.log(`[RainbowRole] Server ${id} was not found.`)
+            if (!server) return console.log(`[RainbowRole] Server ${id} was not found.`)
 
             const role =
                 guild.roles.cache.get(id) ||
                 guild.roles.cache.find(r => r.name === id)
 
-            if (!role && this.logging)
-                return console.log(
-                    `[RainbowRole] Role ${id} was not found in ${guild.id}.`
-                )
+            if (!role && this.logging) return console.log(`[RainbowRole] Role ${id} was not found in ${guild.id}.`)
 
             const registered_roles = this._roles.get(role.guild.id)
 
-            if (registered_roles.includes(role.id))
-                return console.log(
-                    `[RainbowRole] Role ${role.id} has already registered.`
-                )
+            if (registered_roles.includes(role.id)) return console.log(`[RainbowRole] Role ${role.id} has already registered.`)
 
             roles.push([role.guild.id, role.id])
         }
@@ -161,13 +153,9 @@ module.exports.RainbowRoleController = class {
 
     changeRoleColor() {
         if (this._roles.size === 0)
-            throw Error(
-                'Use "addRole" or "addRoles" method, before use "changeRoleColor"'
-            )
+            throw Error('Use "addRole" or "addRoles" method, before use "changeRoleColor"')
         if (this._interval !== null)
-            throw Error(
-                'Interval is already registered, use "stop" method before use "changeRoleColor"'
-            )
+            throw Error('Interval is already registered, use "stop" method before use "changeRoleColor"')
         
         const setRoleColor = roles => roles.forEach(role => role.setColor(this.rainbow[this._place]).catch(console.error))
         const logging = () => {
@@ -194,9 +182,7 @@ module.exports.RainbowRoleController = class {
 
     run() {
         if (this._interval !== null)
-            throw Error(
-                '"run" method is already used, please use "stop" method then use it.'
-            )
+            throw Error('"run" method is already used, please use "stop" method then use it.')
 
         const interval = setInterval(() => this._changeRoleColor(), this.speed)
 
