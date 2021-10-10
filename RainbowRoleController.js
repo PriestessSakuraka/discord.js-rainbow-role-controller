@@ -158,7 +158,7 @@ module.exports.RainbowRoleController = class {
             throw Error('Interval is already registered, use "stop" method before use "changeRoleColor"')
         
         const setRoleColor = roles => roles.forEach(role => role.setColor(this.rainbow[this._place]).catch(console.error))
-        const logging = () => {
+        const logging = roles => {
             if (this.logging) {
                 const roles_name = roles.map(r => r.name).join(", ")
                 console.log(`[RainbowRole] Changed ${roles_name} color to ${this.rainbow[this._place]}`)
