@@ -184,7 +184,7 @@ module.exports.RainbowRoleController = class {
         if (this._interval !== null)
             throw Error('"run" method is already used, please use "stop" method then use it.')
 
-        const interval = setInterval(() => this._changeRoleColor(), this.speed)
+        const interval = setInterval(() => this.changeRoleColor(), this.speed)
 
         this._interval = interval
 
