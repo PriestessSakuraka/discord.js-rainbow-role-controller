@@ -163,7 +163,7 @@ const RainbowRoleController = class {
                 console.log(`[RainbowRole] Changed ${roles_name} color to ${this.rainbow[this._place]}`)
             }
         }
-        const changeColor = () => {
+        const changeColorIndex = () => {
             if (this._place == this.colors - 1) {
                 this._place = 0
             } else {
@@ -173,8 +173,8 @@ const RainbowRoleController = class {
         
         this._getRoles()
             .then(roles => setRoleColor(roles))
-            .then(roles => logging())
-            .then(() => changeColor())
+            .then(roles => logging(roles))
+            .then(() => changeColorIndex())
 
         return this
     }
