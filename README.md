@@ -21,7 +21,7 @@ const { Client, Intents } = require("discord.js")
 const { RainbowRoleController } = require("./RainbowRoleController.js")
 
 const client = new Client({
-    intents: 0
+    intents: [Intents.FLAGS.GUILDS]
 })
 
 client.on("ready", () => {
