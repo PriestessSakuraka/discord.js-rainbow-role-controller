@@ -24,7 +24,7 @@ const client = new Client({ intents: [Intents.FLAGS.GUILDS] })
 
 client.on("ready", () => {
     const controller = new RainbowRoleController(client, {
-        guilds: "guild id",
+        guilds: "guild_id",
         colors: 7,
         speed: 60000,
         logging: true
