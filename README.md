@@ -2,6 +2,8 @@
 
 # Features
 
+Change color of role on discord periodically.
+
 # Requirements
 
 * Discord.js v12.2.0 or later (v13.2.0)
