@@ -1,4 +1,4 @@
-const { Collection, MessageEmbed } = require("discord.js")
+const { Collection } = require("discord.js")
 
 const isArr = obj => Object.prototype.toString.call(obj) === "[object Array]"
 const isStr = obj => Object.prototype.toString.call(obj) === "[object String]"
