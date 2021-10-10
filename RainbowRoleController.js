@@ -212,3 +212,5 @@ const RainbowRoleController = class {
         return this
     }
 }
+
+module.exports = RainbowRoleController
