@@ -3,9 +3,8 @@ const { Collection, MessageEmbed } = require("discord.js")
 const isArr = obj => Object.prototype.toString.call(obj) === "[object Array]"
 const isStr = obj => Object.prototype.toString.call(obj) === "[object String]"
 const isNum = obj => Object.prototype.toString.call(obj) === "[object Number]"
-const isObj = obj => Object.prototype.toString.call(obj) === "[object Object]"
 
-module.exports.RainbowRoleController = class {
+const RainbowRoleController = class {
     constructor(client, options) {
         const { guilds, colors, speed, logging } = options
 
