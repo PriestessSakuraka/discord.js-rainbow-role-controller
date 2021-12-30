@@ -2,7 +2,7 @@
 
 # Features
 
-Change colors of role on discord periodically.
+Change a color of role on discord periodically.
 
 # Requirements
 
