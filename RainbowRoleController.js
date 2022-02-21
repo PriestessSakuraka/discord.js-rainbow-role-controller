@@ -4,7 +4,7 @@ const isArr = obj => Object.prototype.toString.call(obj) === "[object Array]"
 const isStr = obj => Object.prototype.toString.call(obj) === "[object String]"
 const isNum = obj => Object.prototype.toString.call(obj) === "[object Number]"
 
-const RainbowRoleController = class {
+class RainbowRoleController {
     constructor(client, options) {
         const { guilds, colors, speed, logging } = options
 
